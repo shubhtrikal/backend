@@ -9,7 +9,7 @@ const app = express();
 const mongoose = require("mongoose");
 
 const http = require("http");
-const { Server } = require("socket.io");
+// const { Server } = require("socket.io");
 
 dotenv.config();
 
@@ -19,29 +19,29 @@ app.use(express.json());
 const server = http.createServer(app);
 const MONGO_URL = process.env.MONGO_URL
 
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
-  },
-});
+// const io = new Server(server, {
+//   cors: {
+//     origin: "http://localhost:3000",
+//     methods: ["GET", "POST"],
+//   },
+// });
 
-io.on("connection", (socket) => {
-  console.log("a user connected " + socket.id);
-  socket.on("join_room", (room) => {
-    socket.join(room);
-    console.log("joined room " + room);
-  });
+// io.on("connection", (socket) => {
+//   console.log("a user connected " + socket.id);
+//   socket.on("join_room", (room) => {
+//     socket.join(room);
+//     console.log("joined room " + room);
+//   });
 
-  socket.on("newRequest", (data) => {
-    console.log("reached backend");
-    io.to(data).emit("newRequest", data);
-  });
+//   socket.on("newRequest", (data) => {
+//     console.log("reached backend");
+//     io.to(data).emit("newRequest", data);
+//   });
 
-  socket.on("requestAccepted", (data) => {
-    io.to("room1").emit( "requestAccepted",data);
-  });
-});
+//   socket.on("requestAccepted", (data) => {
+//     io.to("room1").emit( "requestAccepted",data);
+//   });
+// });
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
